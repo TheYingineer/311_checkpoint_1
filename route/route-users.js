@@ -8,34 +8,16 @@ const usersController = require("../controller/controller-users")//importing dat
 // Ex. app.get('/contacts') in "index.js" becomes router.get('/contacts') in "routes/contacts.js"
 // Make sure you move the appropriate "data" from the index.js file into the new file
 
-
-// * GET /users
-//   * Return all users
-
-// * GET /users/:id
-//   * Return just the user that matches the path param (id)
-
-// * POST /users
-//   * Create a new user (sampleUser). Find a way to increment the id so that we always insert the next available id in the list. Currently we have users 1-10 (_data/index_). The next user should be 11
-
-// * PUT /users/:id
-//   * Update one user matching the path param (id). You may again use the sampleUser code as your "body" for this request
-
-// * DELETE /users/:id
-//   * Delete one user by its id
-
-
-
-
 router.get('/users',usersController.list)
 
 router.get('/users/:id',usersController.show)//we create a different file under Comment-controller and it's calling for list function
 
-router.post('/users', usersController.create)
+router.post('/users/new-comment', usersController.create)
 
 router.put('/users/:id',usersController.put)
 
-router.delete('/users/:id',usersController.delete)
+// router.delete('/users/:id', usersController.delete)
 
 // Make sure you export the router from each file
 module.exports= router
+

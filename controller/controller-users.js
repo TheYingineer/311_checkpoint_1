@@ -1,15 +1,20 @@
+// Take the code from each router file and move it into the corresponding controller file
+// Make variables (const <something>) for each function
+// We will make three functions in each file: "list", "show" and "create"
+// You should be able to determine which is which, for example the GET routes will be "list" and "show"
+
 const usersData = require("../data/index")//link from other folders
 
-const show = (req,res) =>{
-    let id = req.params.id;//specially get id from the request parameter 
-    let foundComment = usersData.find((element, index, array)=>{
-        return id == element._id;
-    })
-    res.json(foundComment); 
-}
+const show= (req,res) =>{
+        let id = req.params.id;//specially get id from the request parameter 
+        let foundComment = usersData.find((element, index, array)=>{
+            return id == element._id;
+        })
+        res.json(foundComment); 
+    }
 
 const list = (req,res) => {
-    res.json(usersData) 
+        res.json(usersData) 
 }
 
 const create = (req,res) => {
@@ -34,7 +39,6 @@ const create = (req,res) => {
     res.json(usersData)
 }
 
-
 const put = (req,res) =>{
     let id = req.params.id;//specially get id from the request parameter 
     const {_id, body, postId} = req.body //desctruction of object
@@ -49,17 +53,14 @@ const put = (req,res) =>{
     res.json(usersData); 
 }
 
-   const delete = (req,res) => {
-        let id = req.params.id
-        let foundIndex = users.findIndex((element)=>{
-              
-          return id == element._id // we are comparing id to element ._id in the json file
-        })
-        users.splice(foundIndex,1)
-      
-        // console.log(users)
-        res.status(200).json(users) 
-      
-      }
+// const delete = (req,res) =>{
+//     let id = req.params.id;//specially get id from the request parameter 
+//     let foundIndex = usersData.find((element, index, array)=>{
+//         return id == element._id;
+//     })
+//     users.splice(foundIndex,1)
+//     res.status(200).json(users) 
 
-module.exports = { show, list, create, put, delete } //export :)
+// }
+
+module.exports = { show, list, create, put } //export :)
