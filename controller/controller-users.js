@@ -5,7 +5,23 @@
 
 const usersData = require("../data/index")//link from other folders
 
-const show= (req,res) =>{
+// * listUsers
+//   * Should retrieve the entire array from _data/index_
+
+// * showUser
+//   * Should retrieve just the user that matches the passed-in id
+
+// * createUser
+//   * Should add a user to the array
+
+// * updateUser
+//   * Should update one user in the array based on its id
+
+// * deleteUser
+//   * Should delete one user from the array based on its id
+
+
+const showUser= (req,res) =>{
         let id = req.params.id;//specially get id from the request parameter 
         let foundComment = usersData.find((element, index, array)=>{
             return id == element._id;
@@ -13,11 +29,11 @@ const show= (req,res) =>{
         res.json(foundComment); 
     }
 
-const list = (req,res) => {
+const listUser = (req,res) => {
         res.json(usersData) 
 }
 
-const create = (req,res) => {
+const createUser = (req,res) => {
     // let body = req.body;
     
     //how to destructure an object
@@ -39,7 +55,7 @@ const create = (req,res) => {
     res.json(usersData)
 }
 
-const put = (req,res) =>{
+const updateUser = (req,res) =>{
     let id = req.params.id;//specially get id from the request parameter 
     const {_id, body, postId} = req.body //desctruction of object
    
@@ -53,7 +69,7 @@ const put = (req,res) =>{
     res.json(usersData); 
 }
 
-// const delete = (req,res) =>{
+// const deleteUser = (req,res) =>{
 //     let id = req.params.id;//specially get id from the request parameter 
 //     let foundIndex = usersData.find((element, index, array)=>{
 //         return id == element._id;
@@ -63,4 +79,4 @@ const put = (req,res) =>{
 
 // }
 
-module.exports = { show, list, create, put } //export :)
+module.exports = { showUser, listUser, createUser, updateUser } // need to add deleteUser//export :)
