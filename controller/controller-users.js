@@ -24,8 +24,11 @@ const usersData = require("../data/index")//link from other folders
 const showUser= (req,res) =>{
         let id = req.params.id;//specially get id from the request parameter 
         let foundComment = usersData.find((element, index, array)=>{
-            return id == element._id;
+            return id == element.id;
         })
+        if(!foundComment){
+            return res.status(404).json("User",id," does not exist")
+        }
         res.json(foundComment); 
     }
 
@@ -38,15 +41,15 @@ const createUser = (req,res) => {
     
     //how to destructure an object
     console.log('the body:', req.body)
-    const{_id, body} = req.body
+    const{id, body} = req.body
     const newId = usersData.length+1
-    req.body._id = newId
-    // const {_id: dog, body: cat} = req.body
-    // const _id = req.body._id
+    req.body.id = newId
+    // const {id: dog, body: cat} = req.body
+    // const id = req.body.id
     // const body = req.body.body
     // console.log(dog) // only display id alone
     // console.log(cat)// only display body alone
-    console.log(_id) // only display id alone
+    console.log(id) // only display id alone
     console.log(body)// only display body alone
     //end of destructure
 
@@ -57,26 +60,37 @@ const createUser = (req,res) => {
 
 const updateUser = (req,res) =>{
     let id = req.params.id;//specially get id from the request parameter 
-    const {_id, body, postId} = req.body //desctruction of object
+    const { body, postId} = req.body //desctruction of object // deleted id 
    
     let foundIndex = usersData.findIndex((element, index, array) => {
-        return id == element._id;})
+        return id == element.id;})
+    if(foundIndex<0){
+            return res.status(404).json("User",id," does not exist")
+        }
 
-    usersData[foundIndex].body = body
-    usersData[foundIndex]._id = _id
-    usersData[foundIndex].postId = postId 
+    usersData[foundIndex] = req.body
+    usersData[foundIndex].id = id
 
     res.json(usersData); 
 }
 
-// const deleteUser = (req,res) =>{
-//     let id = req.params.id;//specially get id from the request parameter 
-//     let foundIndex = usersData.find((element, index, array)=>{
-//         return id == element._id;
-//     })
-//     users.splice(foundIndex,1)
-//     res.status(200).json(users) 
 
-// }
+// Make sure that you are handling common use cases. 
+//For example, if we try to find a user by its id_ and no id exists,
+// we should return a 404 status code and no data. Likewise for the PUT and DELETEs, 
+//if a user doesn't exist return a 400 (bad request) status code.
 
-module.exports = { showUser, listUser, createUser, updateUser } // need to add deleteUser//export :)
+const deleteUser = (req,res) =>{
+    let id = req.params.id;//specially get id from the request parameter 
+    let foundIndex = usersData.findIndex((element, index, array)=>{
+        return id == element.id;
+    })
+    if(foundIndex<0){
+        return res.status(404).json("User",id," does not exist")
+    }
+    usersData.splice(foundIndex,1)
+    res.status(200).json(usersData) 
+
+}
+
+module.exports = { showUser, listUser, createUser, updateUser, deleteUser } // need to add deleteUser//export :)

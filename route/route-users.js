@@ -28,11 +28,11 @@ router.get('/users',usersController.listUser)
 
 router.get('/users/:id',usersController.showUser)//we create a different file under Comment-controller and it's calling for list function
 
-router.post('/users/new-comment', usersController.createUser)
+router.post('/users', usersController.createUser)
 
 router.put('/users/:id',usersController.updateUser)
 
-// router.delete('/users/:id', usersController.deleteUser)
+router.delete('/users/:id', usersController.deleteUser)
 
 // Make sure you export the router from each file
 module.exports= router
